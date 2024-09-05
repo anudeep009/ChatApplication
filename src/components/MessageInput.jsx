@@ -22,7 +22,7 @@ function MessageInput() {
 
   return (
     <div
-      className={`flex items-center p-2 md:p-4 border-t ${isDarkMode ? 'bg-[#2d2d2d] border-gray-600' : 'bg-white border-gray-300'}`}
+      className={`flex items-center md:p-4 border-t ${isDarkMode ? 'bg-[#2d2d2d] border-gray-600' : 'bg-white border-gray-300'}`}
     >
       <input
         type="text"
