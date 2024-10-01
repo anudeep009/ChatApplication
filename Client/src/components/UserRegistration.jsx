@@ -4,7 +4,6 @@ export default function UserRegistration() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Load the Google Identity Services script
     const script = document.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client';
     script.async = true;
@@ -24,7 +23,6 @@ export default function UserRegistration() {
       });
       window.google.accounts.id.prompt((notification) => {
         if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Try to render the popup manually
           window.google.accounts.id.renderButton(
             document.getElementById('googleSignInButton'),
             { theme: 'outline', size: 'large' }
@@ -35,9 +33,7 @@ export default function UserRegistration() {
   };
 
   const handleCredentialResponse = (response) => {
-    // Typically, you would send the response.credential to your server to verify the token and get user info
     console.log('Encoded JWT ID token: ' + response.credential);
-    // For demonstration, decode the JWT locally
     const decodedToken = JSON.parse(atob(response.credential.split('.')[1]));
     setUser(decodedToken);
   };
