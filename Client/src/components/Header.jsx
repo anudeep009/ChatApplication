@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faUser, faSearch, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useDarkMode } from '../contexts/DarkModeContext';
+import UserRegistration from './UserRegistration';
 
 function Header() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showUserRegistration, setShowUserRegistration] = useState(false); // State to toggle UserRegistration
+
+  const handleToggleUserRegistration = () => {
+    setShowUserRegistration(!showUserRegistration);
+  };
 
   return (
     <header className={`w-full px-4 py-3 shadow ${isDarkMode ? 'bg-[#1e1e1e] text-white' : 'bg-[#6366f1] text-white'}`}>
@@ -13,8 +19,7 @@ function Header() {
         <div className="flex items-center space-x-4">
           <div className="text-xl font-bold">Chat Box</div>
           <nav className="hidden md:flex space-x-4">
-            {/* <a href="#">Chats</a>
-            <a href="#">Contacts</a> */}
+            {/* Add navigation items if needed */}
           </nav>
         </div>
         <div className="flex items-center space-x-4">
@@ -32,11 +37,10 @@ function Header() {
           >
             {isDarkMode ? <FontAwesomeIcon icon={faSun} className="w-5 h-5 text-black" /> : <FontAwesomeIcon icon={faMoon} className="w-5 h-5" />}
           </button>
-          <FontAwesomeIcon icon={faUser} className="w-6 h-6 hidden md:block" />
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
+          <button onClick={handleToggleUserRegistration}>
+            <FontAwesomeIcon icon={faUser} className="w-6 h-6 hidden md:block" />
+          </button>
+          <button className="md:hidden p-2" onClick={() => setMenuOpen(!menuOpen)}>
             <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
           </button>
         </div>
@@ -45,10 +49,11 @@ function Header() {
         <div className="flex flex-col mt-2 space-y-2 md:hidden">
           <div className="flex items-center justify-between">
             <nav className="flex flex-col space-y-2">
-              {/* <a href="#" className="text-lg">Chats</a>
-              <a href="#" className="text-lg">Contacts</a> */}
+              {/* Add mobile navigation items if needed */}
             </nav>
-            <FontAwesomeIcon icon={faUser} className="w-6 h-6" />
+            <button onClick={handleToggleUserRegistration}>
+              <FontAwesomeIcon icon={faUser} className="w-6 h-6" />
+            </button>
           </div>
           <div className="relative mt-2">
             <input
@@ -58,6 +63,15 @@ function Header() {
             />
             <FontAwesomeIcon icon={faSearch} className="absolute top-2.5 right-3 text-gray-400" />
           </div>
+        </div>
+      )}
+      {/* Conditionally render UserRegistration */}
+      {showUserRegistration && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <UserRegistration />
+          <button onClick={handleToggleUserRegistration} className="absolute top-4 right-4 p-2 bg-white rounded-full shadow">
+            Close
+          </button>
         </div>
       )}
     </header>

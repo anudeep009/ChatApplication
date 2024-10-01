@@ -6,13 +6,6 @@ function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [selectedChat, setSelectedChat] = useState(null);
   const [messages, setMessages] = useState([
-    { text: 'Hello!', timestamp: '10:00 AM' },
-    { text: 'Hi there!', timestamp: '10:01 AM' },
-    { text: 'Hello!', timestamp: '10:00 AM' },
-    { text: 'Hi there!', timestamp: '10:01 AM' },
-    { text: 'Hello!', timestamp: '10:00 AM' },
-    { text: 'Hi there!', timestamp: '10:01 AM' },
-    { text: 'Hello!', timestamp: '10:00 AM' },
     // sample messages...
   ]);
 

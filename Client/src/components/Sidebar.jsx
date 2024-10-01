@@ -7,18 +7,6 @@ function Sidebar({ selectChat }) {
   const { isDarkMode } = useDarkMode();
 
   const recentChats = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Smith' },
-    { id: 3, name: 'Mike Johnson' },
-    { id: 4, name: 'Alice Cooper' },
-    { id: 5, name: 'Bob Brown' },
-    { id: 6, name: 'Tom Hardy' },
-    { id: 7, name: 'Emma Watson' },
-    { id: 8, name: 'Chris Evans' },
-    { id: 7, name: 'Emma Watson' },
-    { id: 8, name: 'Chris Evans' },
-    { id: 7, name: 'Emma Watson' },
-    { id: 8, name: 'Chris Evans' },
     // More chat items...
   ];
 

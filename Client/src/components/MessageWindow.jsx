@@ -29,7 +29,7 @@ function MessageWindow({ selectedChat, messages }) {
           <MessageInput />
         </>
       ) : (
-        <div className="text-gray-500 text-center">Select a chat to start messaging.</div>
+        <div className="text-gray-500 text-center">Select or Search for a chat to start messaging.</div>
       )}
     </div>
   );
