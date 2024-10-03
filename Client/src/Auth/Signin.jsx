@@ -1,4 +1,4 @@
-import React, { useState,useCallback,useMemo } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
@@ -38,19 +38,27 @@ export const Signin = () => {
       setIsLoading(true);
 
       try {
-         const response = await axios.post(
-        "http://localhost:8080/api/signin",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        { withCredentials: true }
-      );
+        const response = await axios.post(
+          "http://localhost:8080/api/signin", // Ensure this URL matches your backend
+          {
+            email: formData.email,
+            password: formData.password,
+          },
+          { withCredentials: true }
+        );
 
         if (response.status === 200) {
+          const { token, userId, username,email } = response.data; // Extract token and user info
+
+          // Store token and user information in local storage
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId);
+          localStorage.setItem('username', username);
+          localStorage.setItem('email',email);
+
           toast.success("Login successful!");
           setFormError(null);
-          navigate("/");
+          navigate("/"); // Redirect after successful login
         }
       } catch (error) {
         console.error("Login error:", error);
@@ -114,6 +122,7 @@ export const Signin = () => {
       <button type="submit" disabled={isLoading} className={buttonClasses}>
         {isLoading ? "Logging in..." : "Sign In"}
       </button>
+      <Toaster />
     </form>
   );
-}
+};

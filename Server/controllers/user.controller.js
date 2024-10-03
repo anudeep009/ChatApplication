@@ -12,12 +12,14 @@ async function hashPassword(password) {
   return hashedPassword;
 }
 
-
 export const registerUser = async (req, res) => {
   const { username, email, password, profilepicture } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Email and password are required" });
+  if (!email || !password || !username) {
+    // Ensure username is included
+    return res
+      .status(400)
+      .json({ message: "Email, password, and username are required" });
   }
 
   try {
@@ -25,8 +27,8 @@ export const registerUser = async (req, res) => {
     if (!existingUser) {
       const hashedPassword = await hashPassword(password);
 
-      await User.create({
-        username,
+      const newUser = await User.create({
+        username, // Store the username correctly
         email,
         password: hashedPassword,
         profilepicture:
@@ -46,8 +48,6 @@ export const registerUser = async (req, res) => {
       .json({ message: "Server error", error: error.message });
   }
 };
-
-
 
 export const signin = async (req, res) => {
   const { email, password } = req.body;
@@ -70,29 +70,17 @@ export const signin = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, username: user.username, email: user.email },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
+      { expiresIn: "1d" }
     );
 
-  
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      maxAge: 24 * 60 * 60 * 1000,
+    return res.status(200).json({
+      message: "User signed in successfully",
+      token,
+      userId: user._id.toString(),
+      username: user.username, // Ensure username is returned correctly
+      email: user.email, // Include email
+      profilePicture: user.profilepicture, // Include profile picture
     });
-
-    res.cookie("userId", user._id.toString(), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
-
-    return res.status(200).json({ message: "User signed in successfully" });
   } catch (error) {
     console.error("Error while signing in:", error.message);
     return res
@@ -100,7 +88,6 @@ export const signin = async (req, res) => {
       .json({ message: "Server error", error: error.message });
   }
 };
-
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -117,7 +104,7 @@ export const getUserProfile = async (req, res) => {
     }
 
     res.status(200).json({
-      username: user.username,
+      username: user.username, // Ensure correct username is returned
       email: user.email,
       // notifications: user.notifications,
     });

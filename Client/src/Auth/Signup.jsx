@@ -105,6 +105,7 @@ export const Signup = () => {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
+      <Toaster />
       <div>
         <label htmlFor="username" className="block text-white font-medium">
           User Name

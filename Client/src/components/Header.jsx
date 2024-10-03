@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faUser, faBars, faBell } from '@fortawesome/free-solid-svg-icons';
 import { useDarkMode } from '../contexts/DarkModeContext';
-import AuthForm from '../Auth/AuthForm';
+import ToggleStatus from '../Auth/ToggleStatus';
 import { Link } from 'react-router-dom';
 
 function Header() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showAuthForm, setShowAuthForm] = useState(false);
+  const [notifications, setNotifications] = useState([]); 
 
   const handleAuthFormToggle = () => {
     setShowAuthForm(!showAuthForm);
+  };
+
+  const handleNotificationClick = () => {
+    console.log("Notifications clicked");
   };
 
   return (
@@ -28,6 +33,12 @@ function Header() {
           <div className="hidden md:flex items-center space-x-6 ml-auto">
             <button onClick={toggleDarkMode}>
               {isDarkMode ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}
+            </button>
+            <button onClick={handleNotificationClick} className="relative">
+              <FontAwesomeIcon icon={faBell} className="text-gray-300" />
+              {notifications.length > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">{notifications.length}</span>
+              )}
             </button>
             <button onClick={handleAuthFormToggle}>
               <FontAwesomeIcon icon={faUser} className="text-gray-300" />
@@ -57,13 +68,19 @@ function Header() {
               <FontAwesomeIcon icon={faUser} />
               <span>Login / Signup</span>
             </button>
+            <button
+              onClick={handleNotificationClick}
+              className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors duration-300"
+            >
+              <FontAwesomeIcon icon={faBell} />
+              <span>Notifications {notifications.length > 0 && `(${notifications.length})`}</span>
+            </button>
           </div>
         )}
       </header>
 
-      {/* Auth Form Overlay */}
       {showAuthForm && (
-        <AuthForm onClose={handleAuthFormToggle} />
+        <ToggleStatus />
       )}
     </>
   );
