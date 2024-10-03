@@ -38,10 +38,14 @@ export const Signin = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.post("http://localhost:8080/api/signin", {
+         const response = await axios.post(
+        "http://localhost:8080/api/signin",
+        {
           email: formData.email,
           password: formData.password,
-        });
+        },
+        { withCredentials: true }
+      );
 
         if (response.status === 200) {
           toast.success("Login successful!");

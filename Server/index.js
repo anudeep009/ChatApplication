@@ -7,7 +7,13 @@ import userroutes from "./routes/user.routes.js";
 const app = express();
 dotenv.config();
 connectDB();
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 const PORT = process.env.PORT || 8080;
@@ -17,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", userroutes);
+
 
 app.listen(PORT, () => {
   console.log(`app is running on : http://localhost:${process.env.PORT}`);

@@ -16,7 +16,6 @@ async function hashPassword(password) {
 export const registerUser = async (req, res) => {
   const { username, email, password, profilepicture } = req.body;
 
-  
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
@@ -25,11 +24,13 @@ export const registerUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
       const hashedPassword = await hashPassword(password);
+
       await User.create({
         username,
         email,
         password: hashedPassword,
-        profilepicture,
+        profilepicture:
+          profilepicture || "https://example.com/default-profile-pic.jpg",
       });
 
       return res.status(201).json({ message: "User registered successfully" });
@@ -45,6 +46,7 @@ export const registerUser = async (req, res) => {
       .json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 export const signin = async (req, res) => {
@@ -96,5 +98,31 @@ export const signin = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Server error", error: error.message });
+  }
+};
+
+
+export const getUserProfile = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      // notifications: user.notifications,
+    });
+  } catch (error) {
+    console.error("Error fetching user profile:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };

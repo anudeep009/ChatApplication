@@ -15,7 +15,6 @@ export const Signup = () => {
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
 
-
   const validateForm = useCallback(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
@@ -35,7 +34,6 @@ export const Signup = () => {
     }
   };
 
- 
   const uploadToCloudinary = async (file) => {
     const cloudinaryData = new FormData();
     cloudinaryData.append("file", file);
@@ -44,8 +42,9 @@ export const Signup = () => {
     try {
       const res = await axios.post(
         "https://api.cloudinary.com/v1_1/dbdq4twu1/image/upload",
+        cloudinaryData
       );
-      return res.data.url;
+      return res.data.secure_url;
     } catch (error) {
       console.error("Cloudinary upload error:", error);
       throw new Error("Failed to upload image to Cloudinary.");
@@ -74,6 +73,7 @@ export const Signup = () => {
           password: formData.password,
           profilePictureUrl: profileImageUrl,
         };
+        console.log(profileImageUrl);
 
         const response = await axios.post("http://localhost:8080/api/signup", formDataToSend);
 
