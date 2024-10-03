@@ -15,9 +15,9 @@ const UserProfile = ({ userInfo, onClose }) => {
         <p className="mb-2">
           <span className="font-bold">Username:</span> {userInfo.username}
         </p>
-        <p className="mb-2">
+        {/* <p className="mb-2">
           <span className="font-bold">UserID:</span> {userInfo.userid}
-        </p>
+        </p> */}
         <p className="mb-2">
           <span className="font-bold">Email:</span> {userInfo.email}
         </p>
