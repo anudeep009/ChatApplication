@@ -39,7 +39,7 @@ export const Signin = () => {
 
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/signin", // Ensure this URL matches your backend
+          "http://localhost:8080/api/signin",
           {
             email: formData.email,
             password: formData.password,
@@ -48,9 +48,9 @@ export const Signin = () => {
         );
 
         if (response.status === 200) {
-          const { token, userId, username,email } = response.data; // Extract token and user info
+          const { token, userId, username,email } = response.data;
 
-          // Store token and user information in local storage
+        
           localStorage.setItem('token', token);
           localStorage.setItem('userId', userId);
           localStorage.setItem('username', username);
@@ -58,7 +58,7 @@ export const Signin = () => {
 
           toast.success("Login successful!");
           setFormError(null);
-          navigate("/"); // Redirect after successful login
+          navigate("/"); 
         }
       } catch (error) {
         console.error("Login error:", error);
