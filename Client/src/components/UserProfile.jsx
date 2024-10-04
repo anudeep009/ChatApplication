@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const UserProfile = ({ userInfo, onClose }) => {
+const UserProfile = () => {
+
+  const [userInfo,setuserInfo] = useState({});
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
@@ -15,9 +18,6 @@ const UserProfile = ({ userInfo, onClose }) => {
         <p className="mb-2">
           <span className="font-bold">Username:</span> {userInfo.username}
         </p>
-        {/* <p className="mb-2">
-          <span className="font-bold">UserID:</span> {userInfo.userid}
-        </p> */}
         <p className="mb-2">
           <span className="font-bold">Email:</span> {userInfo.email}
         </p>

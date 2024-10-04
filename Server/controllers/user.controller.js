@@ -9,7 +9,7 @@ dotenv.config();
 async function hashPassword(password) {
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  return hashedPassword;
+  return hashedPassword;  
 }
 
 export const registerUser = async (req, res) => {
@@ -57,36 +57,39 @@ export const signin = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(400).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign(
-      { id: user._id, username: user.username, email: user.email },
+      { id: user._id, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    return res.status(200).json({
-      message: "User signed in successfully",
-      token,
-      userId: user._id.toString(),
-      username: user.username, 
-      email: user.email, 
-      profilePicture: user.profilepicture, 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      maxAge: 24 * 60 * 60 * 1000,
     });
+
+    return res.status(200).json({ message: "User signed in successfully" });
   } catch (error) {
-    console.error("Error while signing in:", error.message);
     return res
       .status(500)
       .json({ message: "Server error", error: error.message });
   }
 };
+
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -115,6 +118,7 @@ export const getUserProfile = async (req, res) => {
 
 export const findUser = async (req, res) => {
   const { username } = req.query;
+  const token = req.cookies.token;
 
   try {
     const finduser = await User.findOne({ username });

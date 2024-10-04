@@ -1,40 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faUser, faBars, faBell } from '@fortawesome/free-solid-svg-icons';
 import { useDarkMode } from '../contexts/DarkModeContext';
 import AuthForm from '../Auth/AuthForm';
 import { Link } from 'react-router-dom';
-import UserProfile from './UserProfile';
 
 function Header() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [showProfile, setShowProfile] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    username: '',
-    email: '',
-    userid: '',
-  });
-
-  useEffect(() => {
-    const username = localStorage.getItem('username');
-    const email = localStorage.getItem('email');
-    const userid = localStorage.getItem('userid');
-
-    setUserInfo({
-      username: username || '',
-      email: email || '',
-      userid: userid || ''
-    });
-  }, []);
+  const [showAuthForm, setShowAuthForm] = useState(false); // State to toggle AuthForm
 
   const handleNotificationClick = () => {
     console.log("Notifications clicked");
   };
 
   const handleProfileClick = () => {
-    setShowProfile(!showProfile);
+    setShowAuthForm(!showAuthForm); // Toggle AuthForm visibility
   };
 
   return (
@@ -42,12 +24,12 @@ function Header() {
       <header className={`fixed w-full top-0 z-20 backdrop-filter backdrop-blur-sm shadow-lg ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-[#086788] text-white'} transition-colors`}>
         <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
 
-    
+          {/* Logo */}
           <div className="text-2xl font-bold text-white">
             <Link to="/" className="hover:text-gray-300">Chat Box</Link>
           </div>
 
-       
+          {/* Icons */}
           <div className="hidden md:flex items-center space-x-6 ml-auto">
             <button onClick={toggleDarkMode}>
               {isDarkMode ? <FontAwesomeIcon icon={faSun} /> : <FontAwesomeIcon icon={faMoon} />}
@@ -63,15 +45,15 @@ function Header() {
             </button>
           </div>
 
-        
+          {/* Mobile menu button */}
           <button className="md:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
             <FontAwesomeIcon icon={faBars} className="text-gray-300" />
           </button>
         </div>
 
-        
+        {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden bg-[#086788] flex flex-col space-y-4 mt-2 px-4 py-4 rounded-b-lg shadow-lg">
+          <div className={`md:hidden flex flex-col space-y-4 mt-2 px-4 py-4 rounded-b-lg shadow-lg ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-[#086788] text-white'}`}>
             <button
               onClick={toggleDarkMode}
               className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors duration-300"
@@ -84,7 +66,7 @@ function Header() {
               className="flex items-center space-x-2 text-white hover:text-gray-300 transition-colors duration-300"
             >
               <FontAwesomeIcon icon={faUser} />
-              <span>{userInfo.username ? 'Profile' : 'Login / Signup'}</span>
+              <span>Login / Signup</span>
             </button>
             <button
               onClick={handleNotificationClick}
@@ -97,14 +79,10 @@ function Header() {
         )}
       </header>
 
-    
-      {showProfile && (
-        <div className="fixed inset-0 flex items-center justify-center z-30">
-          {userInfo.username ? (
-            <UserProfile userInfo={userInfo} onClose={() => setShowProfile(false)} />
-          ) : (
-            <AuthForm onClose={() => setShowProfile(false)} />
-          )}
+      {/* Show AuthForm when user icon is clicked */}
+      {showAuthForm && (
+        <div className="fixed inset-0 flex items-center justify-center z-30 bg-black bg-opacity-50">
+          <AuthForm onClose={() => setShowAuthForm(false)} />
         </div>
       )}
     </>
