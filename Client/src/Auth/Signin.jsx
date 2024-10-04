@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
@@ -12,6 +12,14 @@ export const Signin = () => {
   });
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
+
+  // Check if the user is already logged in
+  useEffect(() => {
+    const loginStatus = localStorage.getItem("loginStatus");
+    if (loginStatus === "true") {
+      navigate("/profile");
+    }
+  }, [navigate]);
 
   const validateForm = useCallback(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,21 +52,13 @@ export const Signin = () => {
             email: formData.email,
             password: formData.password,
           },
-          { withCredentials: true }
         );
-
         if (response.status === 200) {
-          const { token, userId, username,email } = response.data;
-
-        
-          localStorage.setItem('token', token);
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('username', username);
-          localStorage.setItem('email',email);
-
+          localStorage.setItem("loginStatus", "true");
+          localStorage.setItem("email", formData.email); // Store user's email
           toast.success("Login successful!");
           setFormError(null);
-          navigate("/"); 
+          navigate("/profile"); // Navigate to profile page
         }
       } catch (error) {
         console.error("Login error:", error);

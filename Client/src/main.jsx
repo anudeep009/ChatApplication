@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import { DarkModeProvider } from './contexts/DarkModeContext'
-import { AuthForm } from '../exports';
+import { AuthForm, UserProfile } from '../exports';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/authentication" element={<AuthForm />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </Router>
     </DarkModeProvider>

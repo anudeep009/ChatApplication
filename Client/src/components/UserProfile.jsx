@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 const UserProfile = () => {
 
   const [userInfo,setuserInfo] = useState({});
+  const [OnClose, setOnClose] = useState(false);
+  const onClose = () => {
+
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">

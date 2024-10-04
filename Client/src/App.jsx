@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserList, Header, MessageWindow } from '../exports';
 import { useDarkMode } from './contexts/DarkModeContext';
 
@@ -12,6 +12,10 @@ function App() {
   const handleChatSelection = (chat) => {
     setSelectedChat(chat);
   };
+
+  // useEffect(() => {
+  //   window.location.reload();
+  // },[])
 
   return (
     <div
