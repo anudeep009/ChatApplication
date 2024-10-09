@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <DarkModeProvider>
       <Router>
         <Routes>
-          <Route path='/auth' index element={<AuthForm />} />
+          <Route path='/authentication' index element={<AuthForm />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/" element={<App />} />
         </Routes>

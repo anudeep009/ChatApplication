@@ -73,7 +73,6 @@ export const Signup = () => {
           password: formData.password,
           profilePictureUrl: profileImageUrl,
         };
-        console.log(profileImageUrl);
 
         const response = await axios.post("http://localhost:8080/api/signup", formDataToSend);
 
@@ -81,7 +80,11 @@ export const Signup = () => {
           toast.success("Signup successful!");
           setFormData({ username: "", email: "", password: "", profilePicture: null });
           setFormError(null);
-          navigate("/authentication"); 
+
+          // Set login status in local storage
+          localStorage.setItem('loginStatus', 'true'); 
+          
+          navigate("/"); // Navigate to home after signup
         }
       } catch (error) {
         console.error("Signup error:", error);
