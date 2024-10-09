@@ -13,10 +13,6 @@ function App() {
     setSelectedChat(chat);
   };
 
-  // useEffect(() => {
-  //   window.location.reload();
-  // },[])
-
   return (
     <div
       className={`flex flex-col h-screen ${

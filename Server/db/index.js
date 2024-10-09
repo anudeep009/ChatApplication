@@ -6,12 +6,11 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.6nzai.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
-    );
-    console.log(`DB connected Successfully`);
+    console.log(`Connecting to DB: ${process.env.MONGO_URI}`);
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log(`DB connected successfully`);
   } catch (error) {
-    console.error(error);
+    console.error(`Error: ${error.message}`);
     process.exit(1);
   }
 };

@@ -9,10 +9,10 @@ dotenv.config();
 async function hashPassword(password) {
   const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  return hashedPassword;  
+  return hashedPassword;
 }
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   const { username, email, password, profilepicture } = req.body;
 
   if (!email || !password || !username) {
@@ -48,7 +48,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const signin = async (req, res) => {
+const signin = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -59,13 +59,13 @@ export const signin = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(401).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     const token = jwt.sign(
@@ -74,15 +74,10 @@ export const signin = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      maxAge: 24 * 60 * 60 * 1000,
+    return res.status(200).json({
+      message: "User signed in successfully",
+      token,
     });
-
-    return res.status(200).json({ message: "User signed in successfully" });
   } catch (error) {
     return res
       .status(500)
@@ -90,8 +85,7 @@ export const signin = async (req, res) => {
   }
 };
 
-
-export const getUserProfile = async (req, res) => {
+const getUserProfile = async (req, res) => {
   try {
     const token = req.cookies.token;
     if (!token) {
@@ -115,8 +109,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-
-export const findUser = async (req, res) => {
+const findUser = async (req, res) => {
   const { username } = req.query;
   const token = req.cookies.token;
 
@@ -124,7 +117,9 @@ export const findUser = async (req, res) => {
     const finduser = await User.findOne({ username });
 
     if (!finduser) {
-      return res.status(404).json({ message: "User not found. Enter a correct username." });
+      return res
+        .status(404)
+        .json({ message: "User not found. Enter a correct username." });
     }
 
     res.status(200).json({ user: finduser });
@@ -134,3 +129,4 @@ export const findUser = async (req, res) => {
   }
 };
 
+export { registerUser, signin, getUserProfile, findUser };

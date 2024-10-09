@@ -24,7 +24,6 @@ app.get("/", (req, res) => {
 
 app.use("/api", userroutes);
 
-
 app.listen(PORT, () => {
   console.log(`app is running on : http://localhost:${process.env.PORT}`);
 });
