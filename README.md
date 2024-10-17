@@ -33,7 +33,7 @@ A **real-time chat application** built using the **MERN stack** (MongoDB, Expres
 - **Database**: MongoDB (using Mongoose for schema modeling)
 - **WebSockets**: Socket.io for real-time communication
 - **Authentication**: JWT (JSON Web Token) for securing API routes
-- **Styling**: CSS/Bootstrap (or your chosen framework)
+- **Styling**: Chakra UI
 
 ---
 
