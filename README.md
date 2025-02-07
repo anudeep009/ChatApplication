@@ -1,57 +1,36 @@
-# MERN Chat Application
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-A **real-time chat application** built using the **MERN stack** (MongoDB, Express.js, React.js, Node.js) and **Socket.io** for instant messaging. This application allows users to communicate seamlessly in private or group chats, with real-time messaging capabilities.
+## Getting Started
 
-## Table of Contents
+First, run the development server:
 
-- [Features](#features)
-- [Technologies](#technologies)
-- [Installation and Setup](#installation-and-setup)
-  - [Step 1: Clone the Repository](#step-1-clone-the-repository)
-  - [Step 2: Backend Setup](#step-2-backend-setup)
-  - [Step 3: Frontend Setup](#step-3-frontend-setup)
-  - [Step 4: Environment Variables](#step-4-environment-variables)
-  - [Step 5: Running the Application](#step-5-running-the-application)
-  - [Step 6: Accessing the Application](#step-6-accessing-the-application)
-- [WebSocket Events](#websocket-events)
-- [License](#license)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Features
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- **Real-time messaging** using **Socket.io**.
-- User **authentication** (JWT-based) for secure access.
-- Private and group chat functionality.
-- **MongoDB** database for storing users and messages.
-- **Responsive design** to ensure smooth user experience across devices.
-- Display of online/offline user status.
-- Notifications for new messages.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Technologies
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- **Frontend**: React.js (with Hooks and Context API)
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (using Mongoose for schema modeling)
-- **WebSockets**: Socket.io for real-time communication
-- **Authentication**: JWT (JSON Web Token) for securing API routes
-- **Styling**: Chakra UI
+## Learn More
 
----
+To learn more about Next.js, take a look at the following resources:
 
-## Installation and Setup
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Follow these steps to get the project running on your local machine.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-### Prerequisites
+## Deploy on Vercel
 
-Ensure you have the following installed:
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- **Node.js**: [Download and Install Node.js](https://nodejs.org/)
-- **MongoDB**: [Download and Install MongoDB](https://www.mongodb.com/)
-- **Git**: [Download and Install Git](https://git-scm.com/)
-
-### Step 1: Clone the Repository
-
-1. Open a terminal and run the following command to clone the repository to your local machine:
-
-   ```bash
-   git clone https://github.com/anudeep009/ChatApplication.git
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
