@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 🎉 Features
+- Direct message (1vs1)
+- Group chat
+- Send image
+- Login Google/Github
 
-## Getting Started
+## Technologies
+- 🚀 Next.js 14 (App router)
+- ⚛️ React 18
+- 📘 Typescript
+- 🎨 TailwindCSS - Class sorting, merging and linting
+- 🔒 Next-auth - Easy authentication library for Next.js (GitHub provider)
+- 🐶 Husky & Lint Staged - Run scripts on your staged files before they are committed
+- 🔹 Icons - From Lucide
+- 🌑 Dark mode - With next-themes
+- 🗺️ NextUI - For fast build web ui
 
-First, run the development server:
+## 🎯 Getting started
+### 1. Clone this template in one of three ways   
+1. Using `git clone`
+
+```bash
+git clone [https://github.com/Skolaczk/next-starter my-project-name](https://github.com/vanhoaltw/next-chat.git)
+```
+
+### 2. Install dependencies
+
+```bash
+yarn
+```
+
+### 3. Set up environment variables
+```
+NEXT_PUBLIC_SITE_URL="" ## not required for development
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ID="" ## not required for development
+
+NEXT_PUBLIC_GITHUB_ID="" ## required for next-auth
+NEXT_PUBLIC_GITHUB_SECRET="" ## required for next-auth
+
+NEXT_PUBLIC_GOOGLE_ID="" ## required for next-auth
+NEXT_PUBLIC_GOOGLE_SECRET="" ## required for next-auth
+
+NEXTAUTH_SECRET="" ## required for next-auth
+NEXTAUTH_URL="" ## Only required for localhost
+
+PUSHER_APP_ID="" ## get here https://dashboard.pusher.com/apps/1753342/keys
+PUSHER_APP_SECRET="" ## get here https://dashboard.pusher.com/apps/1753342/keys
+NEXT_PUBLIC_PUSHER_APP_KEY="" ## https://dashboard.pusher.com/apps/1753342/keys
+
+DB_URI="" ## Mongodb url
+
+NEXT_PUBLIC_IMGBB_KEY="" ## get here https://api.imgbb.com/
+```
+
+### 4. Run the dev server
+
+You can start the server using this command:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+and open http://localhost:3000/ to see this app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ❤️ Support
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If you liked the project, I will appreciate if you leave a star. 🌟😊
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made by <a href="https://anudeepavula.vercel.dev/">Anudeep Avula</a> 
